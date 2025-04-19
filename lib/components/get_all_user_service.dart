@@ -7,8 +7,9 @@ import 'package:http/http.dart' as http;
 import '../static/helper_page.dart';
 
 class UserService {
-  Future<List<UserGharardadModel>?> getAllUsers() async {
-    String infourl = Helper.url.toString() + 'user/get_all_user_with_gharardad';
+  Future<List<UserGharardadModel>?> getAllUsers(int unit) async {
+    String infourl = Helper.url.toString() +
+        'user/get_all_user_with_gharardad/?unit=${unit}';
     try {
       var response = await http.get(Uri.parse(infourl), headers: {
         "Content-Type": "application/json",

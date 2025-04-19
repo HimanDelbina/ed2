@@ -80,114 +80,122 @@ class _AdminHomeState extends State<AdminHome> {
                 ? Center(
                     child: Lottie.asset("assets/lottie/loading.json",
                         height: 40.0))
-                : GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
+                : LayoutBuilder(
+                    builder: (context, constraints) {
+                      int crossAxisCount = constraints.maxWidth > 1200
+                          ? 7
+                          : constraints.maxWidth > 800
+                              ? 5
+                              : 3;
+                      return GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount,
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0),
-                    itemCount: accessList!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          if (accessList![index]["tag"] == "leave") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LeavePage(
-                                      user_id: id_user, Unit_id: id_unit),
-                                ));
-                          } else if (accessList![index]["tag"] == "ezafe") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const OvertimeFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "food") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const FoodFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "lot") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const AnbarFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "loan") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoanFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "shop") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ShopFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "shift") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const UserShiftCheckPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "phone") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const PhoneFirstPage(),
-                                ));
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                  height: 40.0,
-                                  accessList![index]["tag"] == "leave"
-                                      ? "assets/image/leave.png"
-                                      : accessList![index]["tag"] == "food"
-                                          ? "assets/image/cutlery.png"
-                                          : accessList![index]["tag"] == "lot"
-                                              ? "assets/image/warehouse.png"
-                                              : accessList![index]["tag"] ==
-                                                      "ezafe"
-                                                  ? "assets/image/calendar.png"
+                        itemCount: accessList!.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              if (accessList![index]["tag"] == "leave") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LeavePage(
+                                          user_id: id_user, Unit_id: id_unit),
+                                    ));
+                              } else if (accessList![index]["tag"] == "ezafe") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const OvertimeFirstPage(),
+                                    ));
+                              } else if (accessList![index]["tag"] == "food") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const FoodFirstPage(),
+                                    ));
+                              } else if (accessList![index]["tag"] == "lot") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const AnbarFirstPage(),
+                                    ));
+                              } else if (accessList![index]["tag"] == "loan") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoanFirstPage(),
+                                    ));
+                              } else if (accessList![index]["tag"] == "shop") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const ShopFirstPage(),
+                                    ));
+                              } else if (accessList![index]["tag"] == "shift") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const UserShiftCheckPage(),
+                                    ));
+                              } else if (accessList![index]["tag"] == "phone") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const PhoneFirstPage(),
+                                    ));
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Image.asset(
+                                      height: 40.0,
+                                      accessList![index]["tag"] == "leave"
+                                          ? "assets/image/leave.png"
+                                          : accessList![index]["tag"] == "food"
+                                              ? "assets/image/cutlery.png"
+                                              : accessList![index]["tag"] == "lot"
+                                                  ? "assets/image/warehouse.png"
                                                   : accessList![index]["tag"] ==
-                                                          "loan"
-                                                      ? "assets/image/loan.png"
-                                                      : accessList![index]
-                                                                  ["tag"] ==
-                                                              "shop"
-                                                          ? "assets/image/shop.png"
+                                                          "ezafe"
+                                                      ? "assets/image/calendar.png"
+                                                      : accessList![index]["tag"] ==
+                                                              "loan"
+                                                          ? "assets/image/loan.png"
                                                           : accessList![index]
                                                                       ["tag"] ==
-                                                                  "shift"
-                                                              ? "assets/image/shift.png"
+                                                                  "shop"
+                                                              ? "assets/image/shop.png"
                                                               : accessList![index]
-                                                                          [
-                                                                          "tag"] ==
-                                                                      "phone"
-                                                                  ? "assets/image/voip.png"
-                                                                  : ""),
-                              Text(
-                                utf8.decode(
-                                    accessList![index]["name"].codeUnits),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                                                          ["tag"] ==
+                                                                      "shift"
+                                                                  ? "assets/image/shift.png"
+                                                                  : accessList![index]
+                                                                              [
+                                                                              "tag"] ==
+                                                                          "phone"
+                                                                      ? "assets/image/voip.png"
+                                                                      : ""),
+                                  Text(
+                                    utf8.decode(
+                                        accessList![index]["name"].codeUnits),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          );
+                        },
                       );
                     },
                   )),

@@ -180,5 +180,4 @@ class _ManagerAnbarFirstPageState extends State<ManagerAnbarFirstPage> {
       MyMessage.mySnackbarMessage(context, "خطایی رخ داده", 1);
     }
   }
-
 }

@@ -19,7 +19,7 @@ class CheckUserPage extends StatefulWidget {
 class _CheckUserPageState extends State<CheckUserPage> {
   @override
   void initState() {
-    checkRealInternetConnection();
+    get_user_data();
     super.initState();
   }
 
@@ -32,26 +32,26 @@ class _CheckUserPageState extends State<CheckUserPage> {
     );
   }
 
-  Future<void> checkRealInternetConnection() async {
-    try {
-      final result = await http.get(Uri.parse('https://www.google.com'));
-      if (result.statusCode == 200) {
-        get_user_data();
-      } else {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const NoInternetPage(),
-            ));
-      }
-    } catch (e) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const NoInternetPage(),
-          ));
-    }
-  }
+  // Future<void> checkRealInternetConnection() async {
+  //   try {
+  //     final result = await http.get(Uri.parse('https://www.google.com'));
+  //     if (result.statusCode == 200) {
+  //       get_user_data();
+  //     } else {
+  //       Navigator.push(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => const NoInternetPage(),
+  //           ));
+  //     }
+  //   } catch (e) {
+  //     Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => const NoInternetPage(),
+  //         ));
+  //   }
+  // }
 
   int? id_user = 0;
   void get_user_data() async {

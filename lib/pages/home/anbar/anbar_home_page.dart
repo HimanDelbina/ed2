@@ -63,6 +63,10 @@ class _AnbarHomePageState extends State<AnbarHomePage> {
     }
   }
 
+  bool? is_mahtab = true;
+  bool? is_sadaf = false;
+  String? anbar_select = "MA";
+
   @override
   Widget build(BuildContext context) {
     double my_height = MediaQuery.of(context).size.height;
@@ -72,6 +76,33 @@ class _AnbarHomePageState extends State<AnbarHomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            children: [
+              show_manager_filter(
+                "انبار مهتاب",
+                is_mahtab,
+                () {
+                  setState(() {
+                    is_mahtab = true;
+                    is_sadaf = false;
+                    anbar_select = "MA";
+                  });
+                },
+              ),
+              show_manager_filter(
+                "انبار صدف",
+                is_sadaf,
+                () {
+                  setState(() {
+                    is_mahtab = false;
+                    is_sadaf = true;
+                    anbar_select = "SA";
+                  });
+                },
+              ),
+            ],
+          ),
+          const Divider(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: group_name == "کنترل کیفیت" ||
@@ -116,48 +147,69 @@ class _AnbarHomePageState extends State<AnbarHomePage> {
                     ],
                   ),
           ),
+
           text_form("توضیحات", IconlyBold.paper, controlleranbardescription,
               anbar_description, false, 3, TextInputType.name),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 5.0),
-                child: Text("انتخاب کالا : "),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
+            child: TextFormField(
+              controller: kalaController,
+              onSaved: (value) => kala = value,
+              keyboardType: TextInputType.text,
+              obscureText: false,
+              cursorColor: Colors.blue,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "نام کالا",
+                hintStyle: TextStyle(color: Colors.grey),
+                suffixIcon: Icon(IconlyBold.paper),
+                suffixIconColor: Colors.grey,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  border: Border.all(),
-                ),
-                child: TypeAheadField<String>(
-                  itemBuilder: (context, String suggestion) {
-                    return ListTile(title: Text(suggestion));
-                  },
-                  controller: kalaController,
-                  onSelected: (String? suggestion) {
-                    kalaController.text = suggestion!;
-                    Text(suggestion);
-                    for (var i = 0; i < data_kala!.length; i++) {
-                      if (data_kala![i].name == suggestion) {
-                        setState(() {
-                          kala_id_select = data_kala![i].id;
-                          kala_select_name = data_kala![i].name;
-                          kala_select_code = data_kala![i].code;
-                          kala_select_unit = data_kala![i].unit;
-                        });
-                      }
-                    }
-                  },
-                  suggestionsCallback: (String pattern) async {
-                    return unit_items!
-                        .where((x) => x.contains(pattern))
-                        .toList();
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     const Padding(
+          //       padding: EdgeInsets.symmetric(vertical: 5.0),
+          //       child: Text("انتخاب کالا : "),
+          //     ),
+          //     Container(
+          //       decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(5.0),
+          //         border: Border.all(),
+          //       ),
+          //       child: TextFormField(
+          //         controller: kalaController,
+          //       ),
+          //       // child: TypeAheadField<String>(
+          //       //   itemBuilder: (context, String suggestion) {
+          //       //     return ListTile(title: Text(suggestion));
+          //       //   },
+          //       //   controller: kalaController,
+          //       //   onSelected: (String? suggestion) {
+          //       //     kalaController.text = suggestion!;
+          //       //     Text(suggestion);
+          //       //     for (var i = 0; i < data_kala!.length; i++) {
+          //       //       if (data_kala![i].name == suggestion) {
+          //       //         setState(() {
+          //       //           kala_id_select = data_kala![i].id;
+          //       //           kala_select_name = data_kala![i].name;
+          //       //           kala_select_code = data_kala![i].code;
+          //       //           kala_select_unit = data_kala![i].unit;
+          //       //         });
+          //       //       }
+          //       //     }
+          //       //   },
+          //       //   suggestionsCallback: (String pattern) async {
+          //       //     return unit_items!
+          //       //         .where((x) => x.contains(pattern))
+          //       //         .toList();
+          //       //   },
+          //       // ),
+          //     ),
+          //   ],
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: Row(
@@ -170,6 +222,10 @@ class _AnbarHomePageState extends State<AnbarHomePage> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
+                          kala_select_name = kalaController.text;
+                          kala_select_code = "";
+                          kala_select_unit = "";
+                          kala_id_select = 0;
                           kalaController.clear();
                           map_parts.add({
                             "id": kala_id_select,
@@ -302,6 +358,7 @@ class _AnbarHomePageState extends State<AnbarHomePage> {
       "user": id_user,
       "commodities": map_parts,
       "manager_select": selected_manager,
+      "anbar_select": anbar_select,
       "clock_create": formattedStartTime.toString().toEnglishDigit(),
       "clock_date_anbar": "",
       "anbar_date": null,
@@ -379,6 +436,8 @@ class _AnbarHomePageState extends State<AnbarHomePage> {
       ),
     );
   }
+
+  String? kala;
 
   String? kala_select_name = "";
   String? kala_select_code = "";

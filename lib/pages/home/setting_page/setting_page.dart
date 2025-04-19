@@ -1,3 +1,4 @@
+import 'package:ed/pages/aboutMe/aboutMe.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ed/pages/home/setting_page/user_details/user_details_page.dart';
 import 'package:ed/static/helper_page.dart';
@@ -87,12 +88,48 @@ class _SettingPageState extends State<SettingPage> {
               const Spacer(),
               GestureDetector(
                 onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AboutMePage(),
+                      ));
+                },
+                child: Container(
+                  height: my_height * 0.06,
+                  width: my_width,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue.withOpacity(0.5)),
+                    color: Colors.grey.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "درباره ما",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons.contact_mail_rounded,
+                          color: Colors.blue,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const Divider(),
+              GestureDetector(
+                onTap: () {
                   set_data();
                 },
                 child: Container(
                   height: my_height * 0.06,
                   width: my_width,
                   decoration: BoxDecoration(
+                    border: Border.all(color: Colors.red.withOpacity(0.2)),
                     color: Colors.grey.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(5.0),
                   ),

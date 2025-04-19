@@ -6,6 +6,7 @@ import '../../../../static/helper_page.dart';
 import 'package:lottie/lottie.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ManagerAnbarRequest extends StatefulWidget {
   const ManagerAnbarRequest({super.key});
@@ -15,9 +16,27 @@ class ManagerAnbarRequest extends StatefulWidget {
 }
 
 class _ManagerAnbarRequestState extends State<ManagerAnbarRequest> {
+  int? company = 0;
+  String? anbar = 'MA';
+
+  void getUserData() async {
+    final SharedPreferences prefsUser = await SharedPreferences.getInstance();
+    company = prefsUser.getInt("company") ?? 0;
+    if (company == 1) {
+      setState(() {
+        anbar = 'MA';
+      });
+    } else if (company == 2) {
+      setState(() {
+        anbar = 'SA';
+      });
+    }
+    get_all_anbar();
+  }
+
   @override
   void initState() {
-    get_all_anbar();
+    getUserData();
     super.initState();
   }
 
@@ -215,7 +234,8 @@ class _ManagerAnbarRequestState extends State<ManagerAnbarRequest> {
   List<dynamic> shop_data = [];
   List<dynamic> anbar_data = [];
   Future get_all_anbar() async {
-    String infourl = Helper.url.toString() + 'anbar/get_combined_data';
+    String infourl = Helper.url.toString() +
+        'anbar/get_combined_data/?anbar_select=${anbar}';
     var response = await http.get(Uri.parse(infourl), headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",

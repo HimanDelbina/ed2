@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ed/models/users/user_gharardad_model.dart';
 import 'package:ed/static/helper_page.dart';
 import '../../../components/get_all_user_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateShiftPage extends StatefulWidget {
   const CreateShiftPage({super.key});
@@ -17,16 +18,26 @@ class _CreateShiftPageState extends State<CreateShiftPage> {
   bool? isGetData = false;
   List<SelectedUser> selectedUsers = []; // لیست کاربران انتخاب شده
   final userService = UserService();
+  int? userID;
+  int? unitID;
+  void get_user_data() async {
+    final SharedPreferences prefsUser = await SharedPreferences.getInstance();
+    setState(() {
+      userID = prefsUser.getInt("id") ?? 0;
+      unitID = prefsUser.getInt("unit_id") ?? 0;
+    });
+    _getAllUsers();
+  }
 
   @override
   void initState() {
     super.initState();
-    _getAllUsers();
+    get_user_data();
   }
 
   Future<void> _getAllUsers() async {
     try {
-      var users = await userService.getAllUsers();
+      var users = await userService.getAllUsers(unitID!);
       setState(() {
         data = users;
         isGetData = true;

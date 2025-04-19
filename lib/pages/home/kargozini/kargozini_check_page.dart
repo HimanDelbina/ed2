@@ -56,111 +56,122 @@ class _KargoziniCheckPageState extends State<KargoziniCheckPage> {
     return Scaffold(
       body: Padding(
         padding: PagePadding.page_padding,
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, crossAxisSpacing: 10.0, mainAxisSpacing: 10.0),
-          itemCount: data!.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                if (data![index]['title'] == "مرخصی") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const KargoziniLeaveFirstPage(),
-                      ));
-                } else if (data![index]['title'] == "کاربران") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const KargoziniUsersFirstPage(),
-                      ));
-                } else if (data![index]['title'] == "قرارداد") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const GharadadFirstPage(),
-                      ));
-                } else if (data![index]['title'] == "اضافه کاری") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const KargoziniOvertimeFirstPage(),
-                      ));
-                } else if (data![index]['title'] == "چک کامل") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const KargoziniAllCheckPage(),
-                      ));
-                } else if (data![index]['title'] == "حقوق") {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) => const KargoziniStipendpage(),
-                  //     ));
-                } else if (data![index]['title'] == "صندوق ذخیره") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MoneyFirstPage(),
-                      ));
-                } else if (data![index]['title'] == "دزخواست ها") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RequestFirstPage(),
-                      ));
-                } else if (data![index]['title'] == "پیام ها") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SendMessageFirstPage(),
-                      ));
-                } else if (data![index]['title'] == "اس ام اس") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SmsFirstPage(),
-                      ));
-                } else if (data![index]['title'] == "شیفت") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ShiftFirstPage(),
-                      ));
-                }
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(5.0)),
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(data![index]['icon'], height: 35.0),
-                          Text(
-                            data![index]['title'],
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            int crossAxisCount = constraints.maxWidth > 1200
+                ? 7
+                : constraints.maxWidth > 800
+                    ? 5
+                    : 3;
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0),
+              itemCount: data!.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    if (data![index]['title'] == "مرخصی") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const KargoziniLeaveFirstPage(),
+                          ));
+                    } else if (data![index]['title'] == "کاربران") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const KargoziniUsersFirstPage(),
+                          ));
+                    } else if (data![index]['title'] == "قرارداد") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const GharadadFirstPage(),
+                          ));
+                    } else if (data![index]['title'] == "اضافه کاری") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const KargoziniOvertimeFirstPage(),
+                          ));
+                    } else if (data![index]['title'] == "چک کامل") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const KargoziniAllCheckPage(),
+                          ));
+                    } else if (data![index]['title'] == "حقوق") {
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => const KargoziniStipendpage(),
+                      //     ));
+                    } else if (data![index]['title'] == "صندوق ذخیره") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MoneyFirstPage(),
+                          ));
+                    } else if (data![index]['title'] == "دزخواست ها") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RequestFirstPage(),
+                          ));
+                    } else if (data![index]['title'] == "پیام ها") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SendMessageFirstPage(),
+                          ));
+                    } else if (data![index]['title'] == "اس ام اس") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SmsFirstPage(),
+                          ));
+                    } else if (data![index]['title'] == "شیفت") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ShiftFirstPage(),
+                          ));
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(5.0)),
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(data![index]['icon'], height: 35.0),
+                              Text(
+                                data![index]['title'],
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                        data![index]['id'] == 8
+                            ? count_all == 0
+                                ? const SizedBox()
+                                : BadgeWidget(
+                                    child: Icon(Icons.notifications, size: 20),
+                                    value: count_all!)
+                            : const SizedBox(),
+                      ],
                     ),
-                    data![index]['id'] == 8
-                        ? count_all == 0
-                            ? const SizedBox()
-                            : BadgeWidget(
-                                child: Icon(Icons.notifications, size: 20),
-                                value: count_all!)
-                        : const SizedBox(),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             );
           },
         ),

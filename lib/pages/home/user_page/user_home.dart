@@ -12,6 +12,7 @@ import '../food/food_firstpage.dart';
 import '../loan/loan_firstpage.dart';
 import '../overtime/overtime_firstpage.dart';
 import '../phone/phone_firstpage.dart';
+import 'dart:convert';
 
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
@@ -73,96 +74,108 @@ class _UserHomePageState extends State<UserHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-            padding: PagePadding.page_padding,
-            child: is_check_all! == false
-                ? Center(
-                    child: Lottie.asset("assets/lottie/loading.json",
-                        height: 40.0))
-                : GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 10.0,
-                            mainAxisSpacing: 10.0),
-                    itemCount: accessList!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          if (accessList![index]["tag"] == "leave") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LeavePage(
-                                      user_id: id_user, Unit_id: id_unit),
-                                ));
-                          } else if (accessList![index]["tag"] == "ezafe") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const OvertimeFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "food") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const FoodFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "lot") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const AnbarFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "loan") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoanFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "phone") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const PhoneFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "shift") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ShiftFirstPage(),
-                                ));
-                          } else if (accessList![index]["tag"] == "shop") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ShopFirstPage(),
-                                ));
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(5.0),
+        child: LayoutBuilder(builder: (context, constraints) {
+          int crossAxisCount = constraints.maxWidth > 1200
+              ? 7
+              : constraints.maxWidth > 800
+                  ? 5
+                  : 3;
+          return Padding(
+              padding: PagePadding.page_padding,
+              child: is_check_all! == false
+                  ? Center(
+                      child: Lottie.asset("assets/lottie/loading.json",
+                          height: 40.0))
+                  : GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount, // <-- Use the responsive variable here
+                        crossAxisSpacing: 10.0,
+                        mainAxisSpacing: 10.0,
+                        childAspectRatio: constraints.maxWidth > 600 ? 1.2 : 1,
+                      ),
+                      itemCount: accessList!.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            if (accessList![index]["tag"] == "leave") {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LeavePage(
+                                        user_id: id_user, Unit_id: id_unit),
+                                  ));
+                            } else if (accessList![index]["tag"] == "ezafe") {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const OvertimeFirstPage(),
+                                  ));
+                            } else if (accessList![index]["tag"] == "food") {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const FoodFirstPage(),
+                                  ));
+                            } else if (accessList![index]["tag"] == "lot") {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AnbarFirstPage(),
+                                  ));
+                            } else if (accessList![index]["tag"] == "loan") {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoanFirstPage(),
+                                  ));
+                            } else if (accessList![index]["tag"] == "phone") {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PhoneFirstPage(),
+                                  ));
+                            } else if (accessList![index]["tag"] == "shift") {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ShiftFirstPage(),
+                                  ));
+                            } else if (accessList![index]["tag"] == "shop") {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ShopFirstPage(),
+                                  ));
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TagImage(
+                                    tag: accessList![index]["tag"],
+                                    height: 40.0),
+                                Text(
+                                  utf8.decode(
+                                      accessList![index]["name"].codeUnits),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              TagImage(
-                                  tag: accessList![index]["tag"], height: 40.0),
-                              Text(
-                                utf8.decode(
-                                    accessList![index]["name"].codeUnits),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  )),
+                        );
+                      },
+                    ));
+        }),
       ),
     );
   }

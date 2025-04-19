@@ -51,95 +51,106 @@ class _ManagerAnbarCheckState extends State<ManagerAnbarCheck> {
   Widget build(BuildContext context) {
     return Padding(
       padding: PagePadding.page_padding,
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, crossAxisSpacing: 10.0, mainAxisSpacing: 10.0),
-        itemCount: data!.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              if (data![index]['title'] == "درخواست ها") {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ManagerAnbarRequest(),
-                    ));
-              } else if (data![index]['title'] == "کارتکس") {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ManagerAnbarCartex(),
-                    ));
-              } else if (data![index]['title'] == "لباس کار") {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ManagerAnbarClothe(),
-                    ));
-              } else if (data![index]['title'] == "ورود کالا") {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ManagerAnbarImportFirstpage(),
-                    ));
-              } else if (data![index]['title'] == "خروج کالا") {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          const ManagerAcceptExportFirstPage(),
-                    ));
-              } else if (data![index]['title'] == "گزارشات") {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          const ManageraAnbarReportFirstpage(),
-                    ));
-              } else if (data![index]['title'] == "کارمندان") {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          const ManagerAnbarPersonelFirstPage(),
-                    ));
-              } else if (data![index]['title'] == "خرید") {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ShopFirstPage(),
-                    ));
-              }
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(5.0)),
-              child: Stack(
-                children: [
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(data![index]['icon'], height: 35.0),
-                        Text(
-                          data![index]['title'],
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          int crossAxisCount = constraints.maxWidth > 1200
+              ? 7
+              : constraints.maxWidth > 800
+                  ? 5
+                  : 3;
+          return GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 10.0),
+            itemCount: data!.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  if (data![index]['title'] == "درخواست ها") {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ManagerAnbarRequest(),
+                        ));
+                  } else if (data![index]['title'] == "کارتکس") {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ManagerAnbarCartex(),
+                        ));
+                  } else if (data![index]['title'] == "لباس کار") {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ManagerAnbarClothe(),
+                        ));
+                  } else if (data![index]['title'] == "ورود کالا") {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ManagerAnbarImportFirstpage(),
+                        ));
+                  } else if (data![index]['title'] == "خروج کالا") {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const ManagerAcceptExportFirstPage(),
+                        ));
+                  } else if (data![index]['title'] == "گزارشات") {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const ManageraAnbarReportFirstpage(),
+                        ));
+                  } else if (data![index]['title'] == "کارمندان") {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const ManagerAnbarPersonelFirstPage(),
+                        ));
+                  } else if (data![index]['title'] == "خرید") {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ShopFirstPage(),
+                        ));
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(5.0)),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(data![index]['icon'], height: 35.0),
+                            Text(
+                              data![index]['title'],
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                      data![index]['id'] == 0
+                          ? count_anbar == 0
+                              ? const SizedBox()
+                              : BadgeWidget(
+                                  child: Icon(Icons.notifications, size: 20),
+                                  value: count_anbar!)
+                          : const SizedBox(),
+                    ],
                   ),
-                  data![index]['id'] == 0
-                      ? count_anbar == 0
-                          ? const SizedBox()
-                          : BadgeWidget(
-                              child: Icon(Icons.notifications, size: 20),
-                              value: count_anbar!)
-                      : const SizedBox(),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           );
         },
       ),

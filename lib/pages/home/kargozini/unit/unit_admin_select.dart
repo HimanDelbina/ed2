@@ -104,7 +104,6 @@ class _UnitAdminSelectPageState extends State<UnitAdminSelectPage> {
                         child: data.personnel!.isEmpty
                             ? const Center(child: Text("داده ای وجود ندارد"))
                             : ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: data.personnel!.length,
                                 itemBuilder: (context, index) {

@@ -81,11 +81,27 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                    padding: const EdgeInsets.only(top: 30.0, bottom: 50.0),
-                    child: Image.asset("assets/image/HSLogo.png", height: 150.0)
-                    // Lottie.asset("assets/lottie/HSLogo.json", height: 250.0),
-                    ),
+                Container(
+                  height: my_height * 0.2,
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  margin: const EdgeInsets.only(bottom: 50.0),
+                  decoration: BoxDecoration(
+                      // color: Colors.amber,
+                      image: const DecorationImage(
+                          scale: 1.5,
+                          image: AssetImage(
+                            "assets/image/sara_team.png",
+                          )),
+                      border: Border.all(color: Colors.red.withOpacity(0.3)),
+                      shape: BoxShape.circle),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text("Sara Company",
+                          style: TextStyle(fontSize: 16.0, color: Colors.grey)),
+                    ],
+                  ),
+                ),
                 Column(
                   children: [
                     my_form(
@@ -249,7 +265,7 @@ class _LoginPageState extends State<LoginPage> {
       access = jsonEncode(result["access"]);
       adminAccess = jsonEncode(result["admin_access"]);
       unit_id_data = result["unit"]['id'];
-      prefsUser.setString('token', result["token"]);
+      // prefsUser.setString('token', result["token"]);
       prefsUser.setInt('id', result["id"]);
       prefsUser.setString(
           'phone_number', utf8.decode(result["phone_number"].codeUnits));
@@ -260,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
       prefsUser.setString('company_code', result["company_code"]);
       prefsUser.setString('password', result["password"]);
       prefsUser.setString('melli_code', result["melli_code"]);
-      prefsUser.setString('insurance_code', result["insurance_code"]);
+      // prefsUser.setString('insurance_code', result["insurance_code"]);
       prefsUser.setInt('company', result["company"]['id']);
       prefsUser.setInt('group', result["group"]['id']);
       // prefsUser.setInt('manager', result["manager"]);

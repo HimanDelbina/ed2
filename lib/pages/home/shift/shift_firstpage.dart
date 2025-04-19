@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../static/helper_page.dart';
@@ -29,80 +28,93 @@ class _ShiftFirstPageState extends State<ShiftFirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: PagePadding.page_padding,
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, crossAxisSpacing: 10.0, mainAxisSpacing: 10.0),
-          itemCount: data!.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                if (data![index]['title'] == "ایجاد شیفت") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CreateShiftPage(),
-                      ));
-                } else if (data![index]['title'] == "تعویض شیفت") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ChangeShiftPage(),
-                      ));
-                } else if (data![index]['title'] == "جا به جایی") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MoveShiftPage(),
-                      ));
-                } else if (data![index]['title'] == "گزارشات") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ReportShiftPage(),
-                      ));
-                } else if (data![index]['title'] == "تاریخچه") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const HistoryReportSwapShiftPage(),
-                      ));
-                } else if (data![index]['title'] == "درخواست ها") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ShiftRequestPage(),
-                      ));
-                }
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(5.0)),
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(data![index]['icon'], height: 35.0),
-                          Text(
-                            data![index]['title'],
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          )
-                        ],
+        body: Padding(
+            padding: PagePadding.page_padding,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                int crossAxisCount = constraints.maxWidth > 1200
+                    ? 7
+                    : constraints.maxWidth > 800
+                        ? 5
+                        : 3;
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount, // Responsive column count
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
+                  ),
+                  itemCount: data!.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        if (data![index]['title'] == "ایجاد شیفت") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CreateShiftPage(),
+                              ));
+                        } else if (data![index]['title'] == "تعویض شیفت") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ChangeShiftPage(),
+                              ));
+                        } else if (data![index]['title'] == "جا به جایی") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MoveShiftPage(),
+                              ));
+                        } else if (data![index]['title'] == "گزارشات") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ReportShiftPage(),
+                              ));
+                        } else if (data![index]['title'] == "تاریخچه") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const HistoryReportSwapShiftPage(),
+                              ));
+                        } else if (data![index]['title'] == "درخواست ها") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ShiftRequestPage(),
+                              ));
+                        }
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(5.0)),
+                        child: Stack(
+                          children: [
+                            Center(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset(data![index]['icon'],
+                                      height: 35.0),
+                                  Text(
+                                    data![index]['title'],
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
+                    );
+                  },
+                );
+              },
+            )));
   }
 }
