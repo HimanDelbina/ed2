@@ -9,8 +9,8 @@ class Helper {
   // static String url = "http://192.168.43.51:5000/";
   // static String url = "http://192.168.43.15:5000/";
   // static String url = "http://192.168.60.184:5000/";
-  static String url = "http://109.125.128.28:5001/";
-  // static String url = "http://192.168.1.150:5001/";
+  // static String url = "http://109.125.128.28:5001/";
+  static String url = "http://192.168.1.150:5001/";
 }
 
 class PagePadding {

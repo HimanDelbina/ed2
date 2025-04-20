@@ -19,6 +19,7 @@ import '../../../../models/fund/count_fund_model.dart';
 import '../../../../static/helper_page.dart';
 import '../../kargozini/all_check/kargozini_all_check_page.dart';
 import '../../kargozini/message/send_message_firstpage.dart';
+import '../../kargozini/salary/salary_firstpage.dart';
 import '../../kargozini/sms/sms_firstpage.dart';
 import '../../kargozini/unit/unit_manager_firstpage.dart';
 import '../../kargozini/users/kargozini_users_firstpage.dart';
@@ -130,15 +131,17 @@ class _AdminCheckPageFirstState extends State<AdminCheckPageFirst> {
                                     builder: (context) =>
                                         const KargoziniAllCheckPage()));
                           } else if (name == "حقوق") {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => const KargoziniStipendpage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SalaryFirstPage()));
                           } else if (name == "صندوق ذخیره") {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MoneyFirstPage()));
+                                    builder: (context) =>
+                                        const MoneyFirstPage()));
                           } else if (name == "درخواست ها") {
                             Navigator.push(
                                 context,
@@ -168,7 +171,8 @@ class _AdminCheckPageFirstState extends State<AdminCheckPageFirst> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const AdminGuardFirstPage(),
+                                  builder: (context) =>
+                                      const AdminGuardFirstPage(),
                                 ));
                           } else if (name == "نامه نگاری") {
                             Navigator.push(
@@ -186,7 +190,8 @@ class _AdminCheckPageFirstState extends State<AdminCheckPageFirst> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const PhoneAdminFirstPage(),
+                                  builder: (context) =>
+                                      const PhoneAdminFirstPage(),
                                 ));
                           } else if (name == "واحد ها") {
                             Navigator.push(
@@ -206,13 +211,15 @@ class _AdminCheckPageFirstState extends State<AdminCheckPageFirst> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LeaveCountFirstPage(),
+                                  builder: (context) =>
+                                      const LeaveCountFirstPage(),
                                 ));
                           } else if (name == "گزارش کامل") {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const AllReportFirstPage(),
+                                  builder: (context) =>
+                                      const AllReportFirstPage(),
                                 ));
                           }
                         },
@@ -224,10 +231,12 @@ class _AdminCheckPageFirstState extends State<AdminCheckPageFirst> {
                             children: [
                               Center(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Image.asset(data![index]['icon'], height: 35.0),
+                                    Image.asset(data![index]['icon'],
+                                        height: 35.0),
                                     Text(
                                       name,
                                       style: const TextStyle(
@@ -240,8 +249,8 @@ class _AdminCheckPageFirstState extends State<AdminCheckPageFirst> {
                                   ? count_all == 0
                                       ? const SizedBox()
                                       : BadgeWidget(
-                                          child:
-                                              Icon(Icons.notifications, size: 20),
+                                          child: Icon(Icons.notifications,
+                                              size: 20),
                                           value: count_all!)
                                   : const SizedBox(),
                             ],
